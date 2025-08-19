@@ -1,0 +1,619 @@
+{% load static %}
+<!-- <h1>Disease Page</h1>
+{{ user.username }}
+<form action="" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <label for="imageUpload">Choose an image to upload:</label>
+    <input type="file" id="imageUpload" name="image" accept="image/*" required>
+    <br><br>
+    <button type="submit">Upload Image</button>
+</form> -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home page</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+    <!-- Slick CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css" />
+
+<!-- jQuery (required for Slick) -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Slick JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+<style>
+    /* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f7f7f7;
+    color: #333;
+    line-height: 1.6;
+    scroll-behavior: smooth;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    transition: color 0.3s ease;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* Header */
+header {
+    background-color: #2c472f;
+    color: #fff;
+}
+
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 20px;
+    font-size: 14px;
+    background-color: #228B22;
+}
+
+.topbar p {
+    margin: 0;
+}
+
+
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #2c472f;
+}
+
+.logo h1 {
+    font-size: 32px;
+    margin: 0;
+}
+
+.logo p {
+    font-size: 14px;
+    margin-top: -10px;
+    color: #ccc;
+}
+
+nav ul {
+    display: flex;
+    gap: 20px;
+}
+
+nav ul li a {
+    color: #fff;
+    font-weight: bold;
+    padding: 10px 15px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+nav ul li a:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: #fff;
+}
+
+.get-help a {
+    background-color: #4caf50;
+    color: #fff;
+    padding: 10px 25px;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.get-help a:hover {
+    background-color: #45a049;
+}
+
+/* Hero Section */
+.hero {
+    position: relative; /* Positioning for pseudo-elements */
+    overflow: hidden; /* Prevent overflow for images */
+}
+
+.hero img {
+    width: 100%;
+    height: auto;
+    object-fit: cover; /* Ensures the image covers the entire area */
+    filter: brightness(0.5); /* Darkens the image for better text contrast */
+}
+
+.hero h2 {
+    position: absolute; /* Position text over image */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 48px;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+    text-align: center;
+    padding: 0 20px;
+    color: white; /* Ensures text is readable */
+}
+
+/* Services Section */
+.services {
+    padding: 80px 0;
+    background-color: #fff;
+    text-align: center;
+}
+
+.services h2 {
+    font-size: 36px;
+    margin-bottom: 40px;
+    color: #2c472f;
+}
+
+/* Footer */
+footer {
+    background-color: #2c472f;
+    color: #fff;
+    padding: 60px 20px;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.logo-footer {
+    flex: 1;
+    max-width: 300px;
+}
+
+.logo-footer h1 {
+    font-size: 28px;
+    margin-bottom: 10px;
+}
+
+.logo-footer p {
+    font-size: 14px;
+    color: #ccc;
+}
+
+.quick-links {
+    flex: 1;
+    max-width: 200px;
+}
+
+.quick-links ul li {
+    margin-bottom: 10px;
+}
+
+.quick-links ul li a {
+    color: #fff;
+    font-size: 16px;
+    transition: color 0.3s ease;
+}
+
+.quick-links ul li a:hover {
+    color: #4caf50;
+    text-decoration: underline;
+}
+
+.contact-footer {
+    flex: 1;
+    max-width: 200px;
+    text-align: right;
+}
+
+.contact-footer p {
+    font-size: 14px;
+    color: #ccc;
+}
+
+@media (max-width: 768px) {
+    .footer-container {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .contact-footer {
+        text-align: center;
+        margin-top: 20px;
+    }
+}
+.hero {
+    position: relative;
+    overflow: hidden;
+}
+
+.hero img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    filter: brightness(0.6);
+}
+
+.hero-content {
+    position: absolute;
+    top: 50%;
+    left: 100px;
+    transform: translateY(-50%);
+    text-align: center;
+    color: #333;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    max-width: 500px; 
+    margin: 0 20px; 
+}
+.hero-content h1 {
+    font-size: 4.5rem;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.hero-content p {
+    font-size: 1.25rem; 
+    margin-bottom: 25px;
+}
+
+.upload-button {
+    background-color: #4caf50;
+    color: white;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.125rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    height: 50px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add subtle shadow */
+}
+
+.upload-button:hover {
+    background-color: #45a049;
+    transform: translateY(-3px); /* Slight lift on hover */
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2); /* Deepen shadow on hover */
+}
+
+.upload-button:active {
+    background-color: #388e3c; /* Darker color when pressed */
+    transform: translateY(0); /* Remove lift on press */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Reduce shadow on press */
+}
+
+
+.disease-library {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Responsive grid */
+    gap: 20px;
+    margin: 100px 0;
+}
+
+.disease-card {
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.disease-card:hover {
+    transform: scale(1.05);
+}
+
+.disease-card img {
+    width: 250px;
+    margin-left: 45px;
+    border-radius: 8px;
+    height: 180px;
+    object-fit: cover;
+}
+
+.disease-card h3 {
+    margin-top: 15px;
+    font-size: 1.2em;
+    color: #333;
+}
+
+.disease-card p {
+    margin-top: 10px;
+    font-size: 0.9em;
+    color: #555;
+}
+
+.disease-card p strong {
+    color: #2d5f2d;
+}
+.agency-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    max-width: 1200px;
+    margin: 50px auto;
+    height: 325px;
+}
+
+.text-content {
+    flex: 1;
+    margin-right: 50px;
+}
+
+.text-content h2 {
+    font-size: 2.2em;
+    margin-bottom: 15px;
+    color: #2d572c; /* Dark green title for agriculture theme */
+    
+}
+.text-content ul{
+    margin-left: 120px;
+    word-spacing: 15px;;
+}
+
+.text-content p {
+    font-size: 1.1em;
+    margin-bottom: 15px;
+    color: #555;
+    line-height: 1.6;
+   
+}
+
+.read-more-btn {
+    background-color: #4caf50; /* Bright green button */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s ease;
+}
+
+.read-more-btn:hover {
+    background-color: #388e3c; /* Dark green hover effect */
+}
+
+.image-content {
+    position: relative;
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.circle-background {
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    background-color: #a5d6a7; /* Light green for a softer background circle */
+    border-radius: 50%;
+    margin-left: 40px;;
+    top: 50%;
+    left: -100px;
+    transform: translateY(-50%);
+    z-index: 1;
+    margin-left: 200px;
+}
+
+.agriculture-image {
+    position: relative;
+    z-index: 2;
+    width: 200px;
+    height: auto;
+    margin-left: 50px;
+    margin-right: 60px;
+    border-radius: 10px; 
+}
+.disease-library {
+    margin: 20px auto; 
+    max-width: 1200px;
+}
+
+.disease-card {
+    padding: 15px;
+    background: #fff; 
+    border-radius: 8px; 
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    margin: 0 10px; 
+}
+
+.disease-card img {
+    max-width: 100%; 
+    border-radius: 8px; 
+}
+
+</style>
+
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="topbar">
+                <p>Welcome to SmartKheti, where innovation meets agriculture!</p>
+               
+            </div>
+            <div class="navbar">
+                <div class="logo">
+                    <h1>SmartKheti</h1>
+                    <p>Your Crop’s Best Defense!</p>
+                </div>
+                <div class="header-info">
+                    <h2>Revolutionizing Crop Disease Detection</h2>
+                    <p>Early detection allows farmers to take swift action, preventing crop loss and enhancing yield quality.</p>
+                </div>
+                
+                
+            </div>
+        </div>
+    </header>
+
+    
+    <section class="hero">
+       <img src="{% static 'main.jpg' %}" alt="main image">
+       <div class="hero-content">
+           
+        <form action="" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <label for="imageUpload">Choose an image to upload:</label>
+            <input type="file" id="imageUpload" name="image" accept="image/*" required>
+            <br><br>
+            <button type="submit" class="upload-button">Upload Image</button>
+        </form>
+        </div>
+    </section>
+    </section>
+
+    <section>
+        <div class="disease-library disease-slider">
+            <!-- Early Blight -->
+            <div class="disease-card">
+                <img src="{% static 'early_plight.jpg' %}" alt="Early Blight on Tomato">
+                <h3>Tomato Early Blight</h3>
+                <p><strong>Symptoms:</strong> Dark, concentric rings on older leaves leading to yellowing and leaf drop.</p>
+                <p><strong>Treatment:</strong> Apply fungicides like chlorothalonil, remove and destroy infected plant debris.</p>
+            </div>
+        
+           
+        
+            <!-- Late Blight -->
+            <div class="disease-card">
+                <img src="{% static 'Late_blight.jpg' %}" alt="Tomato Leaf Late Blight">
+                <h3>Tomato Leaf Late Blight</h3>
+                <p><strong>Symptoms:</strong> Dark, water-soaked patches on leaves and stems, often spreading rapidly in wet conditions.</p>
+                <p><strong>Treatment:</strong> Fungicides like mancozeb or chlorothalonil, remove and destroy infected plants.</p>
+            </div>
+        
+            <!-- Mosaic Virus -->
+            <div class="disease-card">
+                <img src="{% static 'mosaic_virus.jpg' %}" alt="Tomato Leaf Mosaic Virus">
+                <h3>Tomato Leaf Mosaic Virus</h3>
+                <p><strong>Symptoms:</strong> Mottled, yellow or green mosaic patterns on leaves, leaves may become deformed.</p>
+                <p><strong>Treatment:</strong> Remove infected plants, disinfect tools, control aphid populations.</p>
+            </div>
+        
+            <!-- Yellow Virus -->
+            <div class="disease-card">
+                <img src="{% static 'yellow_virus.jpg' %}" alt="Tomato Leaf Yellow Virus">
+                <h3>Tomato Leaf Yellow Virus</h3>
+                <p><strong>Symptoms:</strong> Yellowing of leaves, stunted growth, and reduced fruit size.</p>
+                <p><strong>Treatment:</strong> Control whitefly vectors with insecticides, remove infected plants.</p>
+            </div>
+        
+            <!-- Mold Leaf -->
+            <div class="disease-card">
+                <img src="{% static 'mold_leaf.jpg' %}" alt="Tomato Mold Leaf">
+                <h3>Tomato Mold Leaf</h3>
+                <p><strong>Symptoms:</strong> White to gray moldy patches, often on the undersides of leaves, leading to wilting.</p>
+                <p><strong>Treatment:</strong> Improve air circulation, apply sulfur-based fungicides, remove infected plant parts.</p>
+            </div>
+        
+            <!-- Septoria Leaf Spot -->
+            <div class="disease-card">
+                <img src="{% static 'septoria_leaf_spot.jpg' %}" alt="Tomato Septoria Leaf Spot">
+                <h3>Tomato Septoria Leaf Spot</h3>
+                <p><strong>Symptoms:</strong> Small, circular spots with dark brown margins and gray centers, leading to leaf drop.</p>
+                <p><strong>Treatment:</strong> Apply copper fungicides, avoid overhead watering, remove infected leaves.</p>
+            </div>
+             <!-- Leaf Bacterial Spot -->
+             <div class="disease-card">
+                <img src="{% static 'leaf_bacterial_spot.jpg' %}" alt="Tomato Leaf Bacterial Spot">
+                <h3>Tomato Leaf Bacterial Spot</h3>
+                <p><strong>Symptoms:</strong> Small water-soaked spots that turn brown, with yellow halos around the lesions, leaf yellowing.</p>
+                <p><strong>Treatment:</strong> Copper-based fungicides, remove and destroy affected leaves or plants.</p>
+            </div>
+        </div>
+        
+    </section>
+
+    <section class="agency-section">
+        <div class="text-content">
+            <h2>Crop Suggestions for {{ state }}</h2>
+
+{% if suggestions %}
+    <ul>
+        {% for season, crops in suggestions.items %}
+            <li><strong>{{ season }}:</strong> 
+                {% if crops %}
+                    {{ crops|join:", " }}
+                {% else %}
+                    No suggestions
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No crop suggestions available for your state.</p>
+{% endif %}
+</div>
+<div class="image-content">
+    <div class="circle-background"></div>
+    <img src="{% static 'suggestion.jpg' %}" alt="Agriculture Image" class="agriculture-image">
+</div>
+
+</section>
+    
+   
+
+    
+
+    <footer>
+        <div class="footer-container">
+            <div class="logo-footer">
+                <h1>SmartKheti</h1>
+                <p>Your Crop’s Best Defense!</p>
+            </div>
+           
+            <div class="contact-footer">
+                <p>Contact Us: 94568-80014</p>
+                <p>Email:smartkheti.help@gmail.com</p>
+            </div>
+        </div>
+    </footer>
+    <script>$(document).ready(function(){
+        $('.disease-slider').slick({
+            slidesToShow: 3, // Number of cards to show at a time
+            slidesToScroll: 1, // Number of cards to scroll on each action
+            autoplay: true, // Enable autoplay
+            autoplaySpeed: 3000, // Autoplay speed in milliseconds
+            dots: true, // Show pagination dots
+            responsive: [
+                {
+                    breakpoint: 1024, // Medium screens
+                    settings: {
+                        slidesToShow: 2,
+                        slidesToScroll: 1,
+                    }
+                },
+                {
+                    breakpoint: 768, // Small screens
+                    settings: {
+                        slidesToShow: 1,
+                        slidesToScroll: 1,
+                    }
+                }
+            ]
+        });
+    });
+    </script>
+</body>
+</html>

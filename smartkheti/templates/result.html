@@ -1,0 +1,560 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crop Disease Detection Results</title>
+    <link rel="stylesheet" href="result_styles.css">
+    <style>
+        * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    color: #333;
+}
+
+body {
+    background: #f5f9f4;
+    line-height: 1.6;
+    background-image: url('blur.png');
+    background-size: cover; 
+    background-repeat: no-repeat; 
+    background-position: center; 
+    padding: 0;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto ;
+}
+
+header {
+    background: linear-gradient(90deg, #4caf50, #81c784);
+    color: white;
+    padding: 2em 0;
+    text-align: center;
+   
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2em;
+}
+
+header h1 {
+    font-size: 2.8em;
+    font-weight: 600;
+    letter-spacing: 1px;
+
+}
+
+main {
+    margin: 2em 0;
+}
+
+.result-section {
+    background: white;
+    padding: 2em;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    margin-bottom: 2em;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5em;
+}
+
+.result-section:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);
+}
+
+h2 {
+    color: #388e3c;
+    font-size: 1.8em;
+    margin-bottom: 1em;
+    border-bottom: 2px solid #81c784;
+    padding-bottom: 0.3em;
+    letter-spacing: 1px;
+}
+
+p, ul {
+    margin-bottom: 1.5em;
+    font-size: 1.1em;
+    line-height: 1.8;
+}
+
+strong {
+    color: #388e3c;
+    font-weight: bold;
+}
+
+.detection-summary {
+    background: #f3f7f2;
+    padding: 1.5em;
+    border-left: 8px solid #4caf50;
+    border-radius: 10px;
+    margin-bottom: 1.5em;
+}
+
+.detection-summary p {
+    font-size: 1.1em;
+    color: #555;
+}
+
+.disease-info {
+    background-color: #eaffea;
+    padding: 1.5em;
+    border-radius: 15px;
+    border-left: 6px solid #81c784;
+    margin-bottom: 2em;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    color: #333;
+}
+
+.recommended-action ul {
+    list-style-type: none;
+    padding-left: 1em;
+}
+
+.recommended-action ul li {
+    margin-bottom: 1em;
+    position: relative;
+    padding-left: 2em;
+    font-size: 1.1em;
+    color: #555;
+}
+
+.recommended-action ul li::before {
+    content: "✔";
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: #4caf50;
+    font-size: 1.2em;
+}
+
+.additional-resources {
+    background: #f4f9f4;
+    padding: 2em;
+    margin-top: 2em;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.additional-resources h2 {
+    color: #388e3c;
+    font-size: 1.6em;
+    margin-bottom: 1.5em;
+}
+
+.additional-resources a {
+    display: inline-block;
+}
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Crop Disease Detection Results</h1>
+        </div>
+    </header>
+
+    <main>
+        <div class="container"></div>
+            {% for dis in diseases %}
+            <section class="result-section">
+                <div class="detection-summary">
+                    <h2>Detection Summary</h2>
+                    <img src="{{ dis.image.url }}" alt="Uploaded Image" height="50">
+                    <p>Detected Disease: <strong>{{ dis.prediction }}</strong></p>
+                </div>
+
+                <div class="disease-info">
+                    {% if dis.prediction == 'Tomato early blight' %}
+                    <h2>About the Disease</h2>
+                    <p><strong>Tomato early blight</strong> is a serious disease caused by fungus Alternaria solani.</p>
+                    </div>
+                    <div class="recommended-action">
+                        <h2>Recommended Actions</h2>
+                        <ul>
+                            <li>Use resistant tomato varieties.</li>
+                            <li>Apply fungicides like chlorothalonil or copper-based products early in the season.</li>
+                            <li>Rotate crops and avoid planting tomatoes in the same area consecutively.</li>
+                            <li>Ensure proper spacing to improve air circulation and reduce humidity.</li>
+                        </ul>
+                    </div>
+
+                    {% elif dis.prediction == 'Tomato leaf bacterial spot' %}
+                    <h2>About the Disease</h2>
+                    <p><strong>Tomato leaf bacterial spot</strong> is caused by Botrytis cinerea.</p>
+                    </div>
+                    <div class="recommended-action">
+                        <h2>Recommended Actions</h2>
+                        <ul>
+                            <li>Remove affected leaves and maintain good airflow around plants.</li>
+                            <li>Apply fungicides such as copper-based or sulfur-based sprays.</li>
+                            <li>Ensure proper spacing and avoid wetting the leaves during watering.</li>
+                        </ul>
+                    </div>
+
+                    {% elif dis.prediction == 'Tomato leaf late blight' %}
+                    <h2>About the Disease</h2>
+                    <p><strong>Tomato leaf late blight</strong> is caused by Fungus Phytophthora infestans.</p>
+                    </div>
+                    <div class="recommended-action">
+                        <h2>Recommended Actions</h2>
+                        <ul>
+                            <li>Use fungicides like mancozeb or chlorothalonil.</li>
+                            <li>Remove and destroy infected plants to prevent the spread.</li>
+                            <li>Avoid overhead irrigation and ensure proper spacing for air circulation.</li>
+                        </ul>
+                    </div>
+
+                    {% elif dis.prediction == 'Tomato leaf mosaic virus' %}
+                    <h2>About the Disease</h2>
+                    <p><strong>Tomato leaf mosaic virus</strong> is caused by insects like aphids.</p>
+                    </div>
+                    <div class="recommended-action">
+                        <h2>Recommended Actions</h2>
+                        <ul>
+                            <li>Remove and destroy infected plants as there is no cure.</li>
+                            <li>Control insect vectors (like aphids) using insecticidal soaps or neem oil.</li>
+                            <li>Use resistant varieties and sanitize tools to prevent virus spread.</li>
+                        </ul>
+                    </div>
+
+                    {% elif dis.prediction == 'Tomato leaf yellow virus' %}
+                    <h2>About the Disease</h2>
+                    <p><strong>Tomato leaf yellow virus</strong> is caused by whiteflies.</p>
+                    </div>
+                    <div class="recommended-action">
+                        <h2>Recommended Actions</h2>
+                        <ul>
+                            <li>Control whitefly populations using insecticidal soaps or reflective mulches.</li>
+                            <li>Use resistant varieties to prevent infection.</li>
+                        </ul>
+                    </div>
+
+                    {% elif dis.prediction == 'Tomato mold leaf' %}
+                    <h2>About the Disease</h2>
+                    <p><strong>Tomato mold leaf</strong> is caused by Botrytis cinerea.</p>
+                    </div>
+                    <div class="recommended-action">
+                        <h2>Recommended Actions</h2>
+                        <ul>
+                            <li>Remove affected leaves and maintain good airflow around plants.</li>
+                            <li>Apply fungicides such as copper-based or sulfur-based sprays.</li>
+                            <li>Ensure proper spacing and avoid wetting the leaves during watering.</li>
+                        </ul>
+                    </div>
+
+                    {% elif dis.prediction == 'Tomato Septoria leaf spot' %}
+                    <h2>About the Disease</h2>
+                    <p><strong>Tomato Septoria leaf spot</strong> is caused by Fungus Septoria lycopersici.</p>
+                    </div>
+                    <div class="recommended-action">
+                        <h2>Recommended Actions</h2>
+                        <ul>
+                            <li>Apply fungicides such as mancozeb or chlorothalonil.</li>
+                            <li>Remove and destroy affected leaves to reduce fungal spread.</li>
+                            <li>Mulch around the base of the plants to prevent soil from splashing onto leaves.</li>
+                            <li>Avoid overhead watering and rotate crops yearly.</li>
+                        </ul>
+                    </div>
+
+                    {% elif dis.prediction == 'Unable to process image' %}
+                    <div><p>Unable to process image</p></div>
+
+                    {% else %}
+                    <p>The leaf is healthy.</p>
+                    {% endif %}
+            </section>
+            {% endfor %}
+        </div>
+    </main>
+</body>
+</html>
+        <!-- {% for dis in diseases %}
+        
+        <div class="container">
+            
+            <section class="result-section">
+                <div class="detection-summary">
+
+                    <h2>Detection Summary</h2>
+                    <img src="{{ dis.image.url }}" alt="Uploaded Image" height="50">
+                    <p>Detected Disease: <strong>{{ dis.prediction }}</strong></p>
+                </div>
+
+                <div class="disease-info">
+                    {% if dis.prediction == 'Tomato early blight' %}
+                    <h2>About the Disease</h2>
+                    <p><strong>Tomato early blight</strong> is a serious disease caused by fungus Alternaria solani.</p>
+                </div>
+
+                <div class="recommended-action">
+                    <h2>Recommended Actions</h2>
+                    <ul>
+                        Use resistant tomato varieties.<br>
+                    Apply fungicides like chlorothalonil or copper-based products early in the season.<br>
+                    Rotate crops and avoid planting tomatoes in the same area consecutively.<br>
+                    Ensure proper spacing to improve air circulation and reduce humidity.
+                    </ul>
+                </div>
+                {% elif dis.prediction == 'Tomato leaf bacterial spot' %}
+                    <h2>About the Disease</h2>
+                    <p><strong>Tomato leaf bacterial spot</strong> is a serious disease caused by Botrytis cinerea..</p>
+                </div>
+
+                <div class="recommended-action">
+                    <h2>Recommended Actions</h2>
+                    <ul>
+                        Remove affected leaves and maintain good airflow around plants.<br>
+                        Apply fungicides such as copper-based ones or sulfur-based sprays.<br>
+                        Ensure proper spacing and avoid wetting the leaves during watering.
+                    </ul>
+                </div>
+
+                {% elif dis.prediction == 'Tomato leaf late blight' %}
+                    <h2>About the Disease</h2>
+                    <p><strong>Tomato leaf late blight</strong> is a serious disease caused by Fungus Phytophthora infestans.</p>
+                </div>
+
+                <div class="recommended-action">
+                    <h2>Recommended Actions</h2>
+                    <ul>
+                        Use fungicides like mancozeb or chlorothalonil.<br>
+                    Remove and destroy infected plants to prevent the spread.<br>
+                    Avoid overhead irrigation and ensure proper spacing for air circulation.<br>
+                    Grow resistant varieties if possible.
+                    </ul>
+                </div>
+
+                {% elif dis.prediction == 'Tomato leaf mosaic virus' %}
+                    <h2>About the Disease</h2>
+                    <p><strong>Tomato leaf mosaic virus</strong> is a serious disease caused by insects like aphids.</p>
+                </div>
+
+                <div class="recommended-action">
+                    <h2>Recommended Actions</h2>
+                    <ul>
+                        Remove and destroy infected plants as there is no cure.<br>
+                    Control insect vectors (like aphids) using insecticidal soaps or neem oil.<br>
+                    Use resistant varieties and sanitize tools to prevent virus spread.
+                    </ul>
+                </div>
+                {% elif dis.prediction == 'Tomato leaf yellow virus' %}
+                    <h2>About the Disease</h2>
+                    <p><strong>Tomato leaf yellow virus</strong> is a serious disease caused by whiteflies.</p>
+                </div>
+
+                <div class="recommended-action">
+                    <h2>Recommended Actions</h2>
+                    <ul>
+                        Control whitefly populations using insecticidal soaps or reflective mulches.<br>
+                        Use resistant varieties to prevent infection.<br>
+                        Remove infected plants to limit the spread.
+                    </ul>
+                </div>
+                {% elif dis.prediction == 'Tomato mold leaf' %}
+                    <h2>About the Disease</h2>
+                    <p><strong>Tomato mold leaf</strong> is a serious disease caused by Botrytis cinerea.</p>
+                </div>
+
+                <div class="recommended-action">
+                    <h2>Recommended Actions</h2>
+                    <ul>
+                        Remove affected leaves and maintain good airflow around plants.<br>
+                    Apply fungicides such as copper-based ones or sulfur-based sprays.<br>
+                    Ensure proper spacing and avoid wetting the leaves during watering.
+                    </ul>
+                </div>
+                {% elif dis.prediction == 'Unable to process image' %}
+                <div><p>Unable to process image</p></div>
+                {% elif dis.prediction == 'Tomato Septoria leaf spot' %}
+                    <h2>About the Disease</h2>
+                    <p><strong>Tomato Septoria leaf spot</strong> is a serious disease caused by Fungus Septoria lycopersici.</p>
+                </div>
+
+                <div class="recommended-action">
+                    <h2>Recommended Actions</h2>
+                    <ul>
+                        Apply fungicides such as mancozeb or chlorothalonil.<br>
+                        Remove and destroy affected leaves to reduce fungal spread.<br>
+                        Mulch around the base of the plants to prevent soil from splashing onto leaves.<br>
+                        Avoid overhead watering and rotate crops yearly.
+                    </ul>
+                </div>
+                
+                {% else %}
+                <p>The leaf is healthy.</p>
+            </section>
+            {% endif %}
+
+           
+        </div>
+        {% endfor %}
+    </main>
+
+    
+</body>
+</html> -->
+<!-- {% load static %}
+
+<h1>Result Page</h1>
+<p>{{ user.username }}</p>
+
+Display the uploaded image -->
+<!-- {% for dis in diseases %}
+    {% if dis.image %}
+        <img src="{{ dis.image.url }}" alt="Uploaded Image" height="50">
+    {% else %}
+        <p>No image uploaded for this disease.</p>
+    {% endif %}
+{% endfor %}
+
+
+{% for dis in diseases %}
+    {% if dis.processed_image %}
+        <img src="{{ dis.processed_image.url }}" alt="Uploaded Image" height="50">
+    {% else %}
+        <p>No processed image uploaded for this disease.</p>
+    {% endif %}
+{% endfor %} -->
+
+
+
+
+<!-- <h1>Result Page</h1>
+<p>User: {{ user.username }}</p>
+
+<!-- Display the uploaded images and their predictions 
+{% for dis in diseases %}
+    <div>
+        {% if dis.image %}
+            <h3>Uploaded Image:</h3>
+            <img src="{{ dis.image.url }}" alt="Uploaded Image" height="50">
+        {% else %}
+            <p>No image uploaded for this disease.</p>
+        {% endif %}
+
+    </div>
+{% endfor %}
+
+<div class="container">
+    <h1>Your Diagnosis Results</h1>
+
+    {% if diseases %}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Image</th>
+                    <th>Disease</th>
+                    <th>Prediction Confidence</th>
+                    <th>Solution</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for disease in diseases %}
+                    <tr>
+                        <td><img src="{{ disease.image.url }}" alt="Disease Image" width="100"></td>
+                        
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No diseases found for this user.</p>
+    {% endif %}
+</div> -->
+
+
+
+<!-- {% for dis in diseases %}
+    <div>
+        {% if dis.image %}
+            <h3>Uploaded Image:</h3>
+            <img src="{{ dis.image.url }}" alt="Uploaded Image" height="50">
+        {% else %}
+            <p>No image uploaded for this disease.</p>
+        {% endif %}
+
+        {% if dis.prediction %}
+            <h4>Prediction:</h4>
+            <p>{{ dis.prediction }}</p>
+            
+            {% if dis.prediction == 'Tomato early blight' %}
+                <h5>Cause:</h5>
+                <p>Fungus Alternaria solani.</p>
+                <h5>Solution:</h5>
+                <p>
+                    Use resistant tomato varieties.<br>
+                    Apply fungicides like chlorothalonil or copper-based products early in the season.<br>
+                    Rotate crops and avoid planting tomatoes in the same area consecutively.<br>
+                    Ensure proper spacing to improve air circulation and reduce humidity.
+                </p>
+            {% elif dis.prediction == 'Tomato leaf bacterial spot' %}
+                <h5>Cause:</h5>
+                <p>Gray mold, typically caused by Botrytis cinerea.</p>
+                <h5>Solution:</h5>
+                <p>
+                    Remove affected leaves and maintain good airflow around plants.<br>
+                    Apply fungicides such as copper-based ones or sulfur-based sprays.<br>
+                    Ensure proper spacing and avoid wetting the leaves during watering.
+                </p>
+            {% elif dis.prediction == 'Tomato leaf late blight' %}
+                <h5>Cause:</h5>
+                <p>Fungus Phytophthora infestans.</p>
+                <h5>Solution:</h5>
+                <p>
+                    Use fungicides like mancozeb or chlorothalonil.<br>
+                    Remove and destroy infected plants to prevent the spread.<br>
+                    Avoid overhead irrigation and ensure proper spacing for air circulation.<br>
+                    Grow resistant varieties if possible.
+                </p>
+            {% elif dis.prediction == 'Tomato leaf mosaic virus' %}
+                <h5>Cause:</h5>
+                <p>Mosaic virus transmitted by insects like aphids.</p>
+                <h5>Solution:</h5>
+                <p>
+                    Remove and destroy infected plants as there is no cure.<br>
+                    Control insect vectors (like aphids) using insecticidal soaps or neem oil.<br>
+                    Use resistant varieties and sanitize tools to prevent virus spread.
+                </p>
+            {% elif dis.prediction == 'Tomato leaf yellow virus' %}
+                <h5>Cause:</h5>
+                <p>Yellow leaf curl virus, often transmitted by whiteflies.</p>
+                <h5>Solution:</h5>
+                <p>
+                    Control whitefly populations using insecticidal soaps or reflective mulches.<br>
+                    Use resistant varieties to prevent infection.<br>
+                    Remove infected plants to limit the spread.
+                </p>
+            {% elif dis.prediction == 'Tomato mold leaf' %}
+                <h5>Cause:</h5>
+                <p>Gray mold, typically caused by Botrytis cinerea.</p>
+                <h5>Solution:</h5>
+                <p>
+                    Remove affected leaves and maintain good airflow around plants.<br>
+                    Apply fungicides such as copper-based ones or sulfur-based sprays.<br>
+                    Ensure proper spacing and avoid wetting the leaves during watering.
+                </p>
+            {% elif dis.prediction == 'Tomato Septoria leaf spot' %}
+                <h5>Cause:</h5>
+                <p>Fungus Septoria lycopersici.</p>
+                <h5>Solution:</h5>
+                <p>
+                    Apply fungicides such as mancozeb or chlorothalonil.<br>
+                    Remove and destroy affected leaves to reduce fungal spread.<br>
+                    Mulch around the base of the plants to prevent soil from splashing onto leaves.<br>
+                    Avoid overhead watering and rotate crops yearly.
+                </p>
+            {% elif dis.prediction == 'Tomato leaf' %}
+                <p>Healthy Leaf</p>
+            {% endif %}   Closing the prediction if block -->
+            
+        <!-- {% endif %}  Closing the prediction check if block -->
+ <!-- #\   </div> -->
+<!-- {% endfor %}  Closing the diseases for loop --> 

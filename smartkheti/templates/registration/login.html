@@ -1,0 +1,312 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <style>
+    /* General Reset */
+    /* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {
+    height: 100%;
+    font-family: 'Roboto', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #e0e7ee; 
+    background: url("{% static 'image2.jpg' %}") no-repeat center center;
+     background-size: cover; 
+    background-attachment: fixed;
+}
+
+
+.login-container {
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.login-box {
+    display: flex;
+    width: 100%;
+    width: 900px;
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* Background image for left side */
+.image-section {
+    width: 80%;
+    background: url("{% static 'image1.jpg' %}") no-repeat center center;
+    background-size: cover;
+}
+
+/* Form section on the right side */
+.form-section {
+    width: 80%;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.form-section h2 {
+    font-size: 32px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.form-section p {
+    font-size: 16px;
+    margin-bottom: 30px;
+    color: #666;
+}
+
+.input-group {
+    margin-bottom: 20px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px;
+    margin-top: 5px;
+    border: 1px solid #2d5f2d;
+    border-radius: 20px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
+    font-family: 'Poppins', sans-serif; 
+    font-size: 14px;
+
+}
+
+.input-group input:focus {
+    border-color: #4CAF50;
+}
+
+.forgot-password {
+    text-align: right;
+    margin-bottom: 20px;
+}
+
+.forgot-password a {
+    color: #3498db;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.login-btn {
+    width: 50%;
+    padding: 12px;
+    margin-left: 80px;
+    background: linear-gradient(45deg, #56ab2f, #a8e063);
+    color: white;
+    border: none;
+    border-radius: 25px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.login-btn:hover {
+    background: linear-gradient(45deg, #a8e063, #56ab2f);
+}
+
+.signup-link {
+    margin-top: 20px;
+    font-size: 14px;
+    text-align: center;
+}
+
+.signup-link a {
+    color: #4CAF50;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.social-icons {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.social-icons a {
+    width: 35px;
+    height: 35px;
+    background-color: #f1f1f1;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.social-icons img {
+    width: 20px;
+    height: 20px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .login-box {
+        flex-direction: column;
+        width: 90%;
+    }
+
+    .image-section {
+        width: 100%;
+        height: 200px;
+    }
+
+    .form-section {
+        width: 100%;
+    }
+}
+.toggle-eye {
+    cursor: pointer;
+    margin-left: -30px;
+    position: relative;
+    font-size: 18px;
+}
+
+.input-box {
+    position: relative;
+}
+
+.input-box .toggle-eye {
+    position: absolute;
+    right: 10px;
+    top: 32px; 
+    font-size: 25px;
+    color:black;
+}
+
+  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link rel="stylesheet" href="login_style.css">
+    <script>
+        // JavaScript function to toggle password visibility
+        function togglePasswordVisibility(inputId, iconId) {
+            var passwordInput = document.getElementById(inputId);
+            var icon = document.getElementById(iconId);
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text"; 
+                icon.textContent = "🔒"; // Change icon to a lock when showing password
+            } else {
+                passwordInput.type = "password";
+                icon.textContent = "👁"; // Change back to eye icon
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-box">
+            <div class="image-section">
+            </div>
+            <div class="form-section">
+                <h2>Welcome</h2>
+
+                <p>Log in to your account to continue</p>
+                {% if form.non_field_errors %}
+    <div class="custom-error-message" style="border: 2.2px solid red; background-color: #fdd; color: red; padding: 10px; border-radius: 5px;">
+        {{ form.non_field_errors }}
+    </div>
+{% endif %}
+
+
+                <form action="" method="post">
+                  {% csrf_token %}
+                    <div class="input-group">
+                        <input type="text" placeholder="username" name="username" required>
+                    </div>
+                    <div class="input-group">
+                       
+                        <input type="password" name="password" id="password" placeholder="••••••••••••" required>
+                        <span id="togglePassword" class="toggle-eye" onclick="togglePasswordVisibility('password', 'togglePassword')">👁</span>
+                    </div>
+                    <div class="forgot-password">
+                        <a href="{% url 'password_reset' %}">Forgot your password?</a>
+                    </div>
+                    <button type="submit" class="login-btn">Log In</button>
+                </form>
+                <div class="signup-link">
+                    <p>Don’t have an account? <a href="{% url 'registerPage' %}">Sign up!</a></p>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+
+<!-- 
+    <main class="auth layout">
+      <div class="container">
+        <div class="layout__box">
+          <div class="layout__boxHeader">
+            <div class="layout__boxTitle">
+              <h3>Login</h3>
+            </div>
+          </div>
+          <div class="layout__body">
+
+            <form class="form" action="" method="post">
+              {% csrf_token %}
+              <div class="form__group form__group">
+                <label for="room_name">Username</label>
+                <input id="username" name="username" type="text" />
+              </div>
+              <div class="form__group">
+                <label for="password">Password</label>
+                <input
+                  id="password"
+                  name="password"
+                  type="password"
+                  placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;"
+                />
+              </div>
+
+              <button class="btn btn--main" type="submit">
+                <svg
+                  version="1.1"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="32"
+                  height="32"
+                  viewBox="0 0 32 32"
+                >
+                  <title>lock</title>
+                  <path
+                    d="M27 12h-1v-2c0-5.514-4.486-10-10-10s-10 4.486-10 10v2h-1c-0.553 0-1 0.447-1 1v18c0 0.553 0.447 1 1 1h22c0.553 0 1-0.447 1-1v-18c0-0.553-0.447-1-1-1zM8 10c0-4.411 3.589-8 8-8s8 3.589 8 8v2h-16v-2zM26 30h-20v-16h20v16z"
+                  ></path>
+                  <path
+                    d="M15 21.694v4.306h2v-4.306c0.587-0.348 1-0.961 1-1.694 0-1.105-0.895-2-2-2s-2 0.895-2 2c0 0.732 0.413 1.345 1 1.694z"
+                  ></path>
+                </svg>
+
+                Login
+              </button>
+            </form>
+
+            <div class="auth__action">
+              <p>Haven't signed up yet?</p>
+              <a href="{% url 'registerPage' %}" class="btn btn--link">Sign Up</a>
+              <a href="{% url 'password_reset' %}">Forgot Password?</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main> -->
+
+

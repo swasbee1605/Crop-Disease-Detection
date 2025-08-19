@@ -1,0 +1,17 @@
+<h2>Crop Suggestions for {{ state }}</h2>
+
+{% if suggestions %}
+    <ul>
+        {% for season, crops in suggestions.items %}
+            <li><strong>{{ season }}:</strong> 
+                {% if crops %}
+                    {{ crops|join:", " }}
+                {% else %}
+                    No suggestions
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No crop suggestions available for your state.</p>
+{% endif %}

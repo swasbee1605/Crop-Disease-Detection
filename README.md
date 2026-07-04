@@ -79,7 +79,7 @@ Crop-Disease-Detection/
 ## 👩‍💻 Contributer
 
 **Swastika Kushwaha**
-**Samya Aggarwal**
+,**Samya Aggarwal**
 
 
 

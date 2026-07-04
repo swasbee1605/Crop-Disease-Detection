@@ -396,6 +396,7 @@ websocket-client @ file:///Users/builder/cbouss/perseverance-python-buildout/cro
 Werkzeug @ file:///private/var/folders/k1/30mswbxs7r1g6zwn8y4fyt500000gp/T/abs_87am5fxnsf/croot/werkzeug_1737448721856/work
 whatthepatch @ file:///Users/builder/cbouss/perseverance-python-buildout/croot/whatthepatch_1728595757689/work
 wheel==0.45.1
+whitenoise==6.12.0
 widgetsnbextension @ file:///Users/builder/cbouss/buildout/croot/widgetsnbextension_1735844095800/work
 wrapt @ file:///private/var/folders/nz/j6p8yfhx1mv_0grj5xl4650h0000gp/T/abs_30cvf__dq_/croot/wrapt_1736541623359/work
 wurlitzer @ file:///Users/builder/cbouss/perseverance-python-buildout/croot/wurlitzer_1728595793015/work

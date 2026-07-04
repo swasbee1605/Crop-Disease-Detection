@@ -32,8 +32,9 @@ MESSAGE_TAGS = {
 # Create your views here.
 
 
-model_path = r"C:\Users\Dell\OneDrive\Desktop\smartkheti\tomato_disease_model.joblib"
-model_= joblib.load(model_path) if os.path.exists(model_path) else None
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+model_path = os.path.join(BASE_DIR, "tomato_disease_model.joblib")
+model_ = joblib.load(model_path)
 
 
 # def home(request):
@@ -115,7 +116,7 @@ def disease_detection(request):
     season_suggestions = []
     for season, crops in suggestions.items():
         season_suggestions.append({
-            'season': season,
+            'season': season, 
             'crops': crops if crops else "None"  # If no crops are available, show 'None'
         })
 
@@ -181,6 +182,10 @@ def loginPage(request):
             messages.error(request, 'Username or password is incorrect')
     
     return render(request, 'login.html')
+
+def logoutPage(request):
+    logout(request)
+    return redirect('login')
 
 def loginPage(request):
     page = 'login'
